@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const authenticationRoutes = require("./api/routes/authenticationRoutes");
+const recordRoutes = require("./api/routes/recordRoutes");
 
 mongoose.connect(
   process.env.DB_CONNECT,
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/auth", authenticationRoutes);
+app.use("/record", recordRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
