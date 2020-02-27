@@ -7,6 +7,7 @@ const recordIncomeCollection = require("../models/recordIncomeModels");
 router.post("/1", (req, res, next) => {
     var dayMenu = new recordIncomeCollection({
         _id: new mongoose.Types.ObjectId(),
+        receiptDate: req.body.receiptDate,
         paymentLocation: req.body.paymentLocation,
         departmentName: req.body.departmentName,
         receiptNumber: req.body.receiptNumber,
@@ -20,7 +21,7 @@ router.post("/1", (req, res, next) => {
         dateDeposit: req.body.dateDeposit,
         checkNumber: req.body.checkNumber,
         checkDate: req.body.checkDate,
-        amountOfMoney: req.body.amountOfMoney
+        amountOfMoney: req.body.amountOfMoney,
     });
     recordIncomeCollection
         .insertMany(dayMenu)
