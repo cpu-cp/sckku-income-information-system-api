@@ -52,6 +52,7 @@ router.put("/1/", (req, res, next) => {
         $set: {
             paymentLocation: req.body.paymentLocation,
             departmentName: req.body.departmentName,
+            receiptDate: req.body.receiptDate,
             receiptNumber: req.body.receiptNumber,
             branchmentName: req.body.branchmentName,
             accountCode: req.body.accountCode,
