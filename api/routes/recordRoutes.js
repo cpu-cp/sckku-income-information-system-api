@@ -11,7 +11,7 @@ router.post("/1", (req, res, next) => {
         paymentLocation: req.body.paymentLocation,
         departmentName: req.body.departmentName,
         receiptNumber: req.body.receiptNumber,
-        branchmentName: req.body.branchmentName,
+        branchName: req.body.branchName,
         accountCode: req.body.accountCode,
         incomeListKku: req.body.incomeListKku,
         incomeCodeSc: req.body.incomeCodeSc,

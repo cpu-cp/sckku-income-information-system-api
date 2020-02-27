@@ -7,7 +7,7 @@ var recordIncomeSchema = new Schema({
     paymentLocation: { type: String },
     departmentName: { type: String },
     receiptNumber: { type: String },
-    branchmentName: { type: String },
+    branchName: { type: String },
     accountCode: { type: String },
     incomeListKku: { type: String },
     incomeCodeSc: { type: String },
