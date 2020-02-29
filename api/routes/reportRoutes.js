@@ -26,6 +26,8 @@ router.get("/1", (req, res, next) => {
                 incomeListSc: 1,
                 amountOfMoney: 1,
                 departmentName: 1,
+                credit: "",
+                total: "",
             }
         }
     ]).exec((err, result) => {
@@ -46,6 +48,8 @@ router.get("/1", (req, res, next) => {
                     incomeListSc: "",
                     amountOfMoney: "",
                     departmentName: "",
+                    credit: "",
+                    total: "",
                 }])
             }
         }
@@ -96,24 +100,45 @@ router.get("/1/:date/:month/:year", (req, res, next) => {
 });
 
 router.get("/1/:incomeCodeSc", (req, res, next) => {
-    recordIncomeCollection
-        .find({ incomeCodeSc: req.params.incomeCodeSc })
-        .exec()
-        .then(docs => {
-            if (docs != "") {
-                res.status(200).json(docs);
-            } else {
-                res.status(401).json({
-                    message: "empty"
-                });
+
+    recordIncomeCollection.aggregate([
+        {
+            $match: { incomeCodeSc: req.params.incomeCodeSc }
+        },
+        {
+            $project: {
+                _id: 1,
+                receiptDate: 1,
+                receiptNumber: 1,
+                incomeCodeSc: 1,
+                incomeListSc: 1,
+                amountOfMoney: 1,
+                departmentName: 1,
             }
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
+        }
+    ]).exec((err, result) => {
+        if (err) {
+            res.status(401).json({
                 message: err
-            });
-        });
+            })
+        }
+        else {
+            if (result != '') {
+                res.status(200).json(result)
+            }
+            else {
+                res.status(401).json([{
+                    receiptDate: "",
+                    receiptNumber: "",
+                    incomeCodeSc: "",
+                    incomeListSc: "",
+                    amountOfMoney: "",
+                    departmentName: "",
+                }])
+            }
+        }
+    })
+
 });
 
 router.put("/1/", (req, res, next) => {
@@ -158,6 +183,55 @@ router.get("/2", (req, res, next) => {
     recordIncomeCollection.aggregate([
         {
             $match: {}
+        },
+        {
+            $project: {
+                _id: 1,
+                receiptDate: 1,
+                receiptNumber: 1,
+                accountCode: 1,
+                incomeCodeSc: 1,
+                incomeListKku: 1,
+                incomeListSc: 1,
+                details: 1,
+                receivingType: 1,
+                amountOfMoney: 1,
+                departmentName: 1,
+            }
+        }
+    ]).exec((err, result) => {
+        if (err) {
+            res.status(500).json({
+                message: err
+            })
+        }
+        else {
+            if (result != '') {
+                res.status(200).json(result)
+            }
+            else {
+                res.status(401).json([{
+                    receiptDate: "",
+                    receiptNumber: "",
+                    accountCode: "",
+                    incomeCodeSc: "",
+                    incomeListKku: "",
+                    incomeListSc: "",
+                    details: "",
+                    receivingType: "",
+                    amountOfMoney: "",
+                    departmentName: "",
+                }])
+            }
+        }
+    })
+
+});
+
+router.get("/2/:incomeCodeSc", (req, res, next) => {
+    recordIncomeCollection.aggregate([
+        {
+            $match: {incomeCodeSc: req.params.incomeCodeSc}
         },
         {
             $project: {
