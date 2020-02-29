@@ -8,10 +8,10 @@ const recordIncomeCollection = require("../models/recordIncomeModels");
 router.get("/1", (req, res, next) => {
 
     var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var dd = String(today.getDate()) /* .padStart(2, '0'); */
+    var mm = String(today.getMonth() + 1) /*.padStart(2, '0'); */
     var yyyy = today.getFullYear();
-    todayString = mm + '/' + dd + '/' + yyyy;
+    todayString = dd + '/' + mm + '/' + yyyy;
 
     recordIncomeCollection.aggregate([
         {
