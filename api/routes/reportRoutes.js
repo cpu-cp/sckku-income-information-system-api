@@ -6,9 +6,53 @@ const recordIncomeCollection = require("../models/recordIncomeModels");
 // report 1
 
 router.get("/1", (req, res, next) => {
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+    todayString = mm + '/' + dd + '/' + yyyy;
+
     recordIncomeCollection.aggregate([
         {
-            $match: {}
+            $match: {receiptDate: todayString}
+        },
+        {
+            $project: {
+                _id: 1,
+                receiptDate: 1,
+                receiptNumber: 1,
+                incomeCodeSc: 1,
+                incomeListSc: 1,
+                amountOfMoney: 1,
+                departmentName: 1,
+            }
+        }
+    ]).exec((err, result) => {
+        if (err) {
+            res.status(401).json({
+                message: err
+            })
+        }
+        else {
+            if (result != '') {
+                res.status(200).json(result)
+            }
+            else {
+                res.status(401).json({
+                    message: 'empty'
+                })
+            }
+        }
+    })
+
+});
+
+router.get("/1/date", (req, res, next) => {
+
+    recordIncomeCollection.aggregate([
+        {
+            $match: {receiptDate: req.body.receiptDate}
         },
         {
             $project: {
@@ -140,7 +184,7 @@ router.get("/2", (req, res, next) => {
 
 });
 
-router.put("/2/", (req, res, next) => {
+router.put("/2", (req, res, next) => {
     recordIncomeCollection.updateOne({ _id: req.body._id }, {
         $set: {
             receiptDate: req.body.receiptDate,
