@@ -15,7 +15,7 @@ router.get("/1", (req, res, next) => {
 
     recordIncomeCollection.aggregate([
         {
-            $match: {receiptDate: todayString}
+            $match: { receiptDate: todayString }
         },
         {
             $project: {
@@ -39,9 +39,14 @@ router.get("/1", (req, res, next) => {
                 res.status(200).json(result)
             }
             else {
-                res.status(401).json({
-                    message: 'empty'
-                })
+                res.status(401).json([{
+                    receiptDate: "",
+                    receiptNumber: "",
+                    incomeCodeSc: "",
+                    incomeListSc: "",
+                    amountOfMoney: "",
+                    departmentName: "",
+                }])
             }
         }
     })
@@ -52,7 +57,7 @@ router.get("/1/date", (req, res, next) => {
 
     recordIncomeCollection.aggregate([
         {
-            $match: {receiptDate: req.body.receiptDate}
+            $match: { receiptDate: req.body.receiptDate }
         },
         {
             $project: {
@@ -76,9 +81,14 @@ router.get("/1/date", (req, res, next) => {
                 res.status(200).json(result)
             }
             else {
-                res.status(401).json({
-                    message: 'empty'
-                })
+                res.status(401).json([{
+                    receiptDate: "",
+                    receiptNumber: "",
+                    incomeCodeSc: "",
+                    incomeListSc: "",
+                    amountOfMoney: "",
+                    departmentName: "",
+                }])
             }
         }
     })
@@ -166,7 +176,7 @@ router.get("/2", (req, res, next) => {
         }
     ]).exec((err, result) => {
         if (err) {
-            res.status(401).json({
+            res.status(500).json({
                 message: err
             })
         }
@@ -175,9 +185,18 @@ router.get("/2", (req, res, next) => {
                 res.status(200).json(result)
             }
             else {
-                res.status(401).json({
-                    message: 'empty'
-                })
+                res.status(401).json([{
+                    receiptDate: "",
+                    receiptNumber: "",
+                    accountCode: "",
+                    incomeCodeSc: "",
+                    incomeListKku: "",
+                    incomeListSc: "",
+                    details: "",
+                    receivingType: "",
+                    amountOfMoney: "",
+                    departmentName: "",
+                }])
             }
         }
     })
