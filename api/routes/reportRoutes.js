@@ -53,11 +53,11 @@ router.get("/1", (req, res, next) => {
 
 });
 
-router.get("/1/date", (req, res, next) => {
+router.get("/1/:date/:month/:year", (req, res, next) => {
 
     recordIncomeCollection.aggregate([
         {
-            $match: { receiptDate: req.body.receiptDate }
+            $match: { receiptDate: `${req.params.date}/${req.params.month}/${req.params.year}` }
         },
         {
             $project: {
