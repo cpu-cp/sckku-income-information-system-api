@@ -99,11 +99,11 @@ router.get("/1/:date/:month/:year", (req, res, next) => {
 
 });
 
-router.get("/1/:incomeCodeSc", (req, res, next) => {
+router.get("/1/:date/:month/:year/:incomeCodeSc", (req, res, next) => {
 
     recordIncomeCollection.aggregate([
         {
-            $match: { incomeCodeSc: req.params.incomeCodeSc }
+            $match: { incomeCodeSc: req.params.incomeCodeSc, receiptDate: `${req.params.date}/${req.params.month}/${req.params.year}` }
         },
         {
             $project: {
