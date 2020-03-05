@@ -5,7 +5,7 @@ var itemSchema = new Schema({
     id: { type: String },
     name: { type: String },
     depth: { type: Number },
-    value: [Number]
+    values: [Number]
 },
     { versionKey: false }
 );
