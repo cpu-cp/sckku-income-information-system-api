@@ -10,6 +10,7 @@ dotenv.config();
 const authenticationRoutes = require("./api/routes/authenticationRoutes");
 const recordRoutes = require("./api/routes/recordRoutes");
 const reportRoutes = require("./api/routes/reportRoutes");
+const verifyRoutes = require("./api/routes/verifyRoutes");
 
 mongoose.connect(
   process.env.DB_CONNECT,
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
 app.use("/auth", authenticationRoutes);
 app.use("/record", recordRoutes);
 app.use("/report", reportRoutes);
+app.use("/verify", verifyRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
