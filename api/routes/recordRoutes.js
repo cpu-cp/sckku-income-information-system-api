@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+_ = require("underscore")
 
-const recordIncomeCollection = require("../models/recordIncomeModels");
-const recordKkufmisCollection = require("../models/recordKkufmisModels");
+const recordIncomeCollection = require("../models/recordIncomeModel");
+const recordKkufmisCollection = require("../models/recordKkufmisModel");
+const recordFeeCollection = require("../models/recordFeeModel")
 
 router.post("/1", (req, res, next) => {
     var incomeData = new recordIncomeCollection({
@@ -33,6 +35,39 @@ router.post("/1", (req, res, next) => {
             res.status(401).json({
                 message: err
             });
+        });
+});
+
+router.post("/2", (req, res, next) => {
+    var feeItem = new recordFeeCollection(_.extend({ _id: new mongoose.Types.ObjectId() }, req.body));
+
+    feeItem.save()
+        .then(result => {
+            res.status(201).json(result);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
+router.get("/2", (req, res, next) => {
+    recordFeeCollection.findOne().sort({ _id: -1 }).limit(1)
+        .exec()
+        .then(docs => {
+            if (docs != '') {
+                res.status(200).json(docs)
+            }
+            else {
+                res.status(401).json({
+                    message: "empty"
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err);
         });
 });
 

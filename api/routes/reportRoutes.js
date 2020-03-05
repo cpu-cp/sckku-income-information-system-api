@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const recordIncomeCollection = require("../models/recordIncomeModels");
+const recordIncomeCollection = require("../models/recordIncomeModel");
 
 // report 1
 
