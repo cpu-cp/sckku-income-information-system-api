@@ -196,7 +196,7 @@ router.get("/2", (req, res, next) => {
                 details: 1,
                 receivingType: 1,
                 amountOfMoney: 1,
-                departmentName: 1,
+                branchName: 1,
             }
         }
     ]).exec((err, result) => {
@@ -220,7 +220,7 @@ router.get("/2", (req, res, next) => {
                     details: "",
                     receivingType: "",
                     amountOfMoney: "",
-                    departmentName: "",
+                    branchName: "",
                 }])
             }
         }
@@ -245,7 +245,7 @@ router.get("/2/:incomeCodeSc", (req, res, next) => {
                 details: 1,
                 receivingType: 1,
                 amountOfMoney: 1,
-                departmentName: 1,
+                branchName: 1,
             }
         }
     ]).exec((err, result) => {
@@ -269,7 +269,7 @@ router.get("/2/:incomeCodeSc", (req, res, next) => {
                     details: "",
                     receivingType: "",
                     amountOfMoney: "",
-                    departmentName: "",
+                    branchName: "",
                 }])
             }
         }
@@ -289,7 +289,7 @@ router.put("/2", (req, res, next) => {
             details: req.body.details,
             receivingType: req.body.receivingType,
             amountOfMoney: req.body.amountOfMoney,
-            departmentName: req.body.departmentName,
+            branchName: req.body.branchName,
         }
     }, function (err, docs) {
         if (err) {

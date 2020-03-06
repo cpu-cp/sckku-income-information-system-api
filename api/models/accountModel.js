@@ -5,6 +5,7 @@ var accountSchema = new Schema({
     _id: { type: String },
     username: { type: String },
     password: { type: String },
+    role: { type: String }
 },
     { versionKey: false }
 );

@@ -28,6 +28,7 @@ router.post("/signup", (req, res, next) => {
               _id: new mongoose.Types.ObjectId(),
               username: req.body.username,
               password: hash,
+              role: req.body.role
             });
             user
               .save()
@@ -36,6 +37,7 @@ router.post("/signup", (req, res, next) => {
                   message: "account created",
                   uid: result._id,
                   username: result.username,
+                  role: result.role
                 });
               })
               .catch(err => {
@@ -80,6 +82,7 @@ router.post("/login", (req, res, next) => {
             message: "Auth successful",
             uid: user[0]._id,
             username: user[0].username,
+            role: user[0].role,
             token: token,
           });
         }
