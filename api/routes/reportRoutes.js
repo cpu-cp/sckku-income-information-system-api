@@ -3,6 +3,8 @@ const router = express.Router();
 
 const recordIncomeCollection = require("../models/recordIncomeModel");
 
+const getBranchReportTable = require('../maps/branchReport.map');
+
 // report 1
 
 router.get("/1", (req, res, next) => {
@@ -305,6 +307,52 @@ router.put("/2", (req, res, next) => {
     });
 
 });
+
+
+// report 3
+
+router.get("/3", async (req, res, next) => {
+  /**
+   * data: [
+   *  {
+   *      scCode: string;
+   *      scName: string;
+   *      depth: number; // 1 2 3
+   *      values: number[] // length 14;
+   *      total: number;
+   *  }
+   * ],
+   * total: number[] // length 14;
+   */
+
+  const incomeDocs = await recordIncomeCollection.find();
+  if (incomeDocs == "") {
+    res.status(401).json({
+      message: "emtpy"
+    });
+    return;
+  }
+
+  const table = getBranchReportTable(incomeDocs);
+
+  const total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  for (let i = 0; i < 14; i++) {
+    let sum = 0;
+    for (const row of table) {
+      if (row.depth === 1) {
+        sum += row.values[i];
+      }
+    }
+    total[i] = sum;
+  }
+
+  res.status(200).json({
+    data: table,
+    total
+  });
+});
+
 
 
 module.exports = router;
