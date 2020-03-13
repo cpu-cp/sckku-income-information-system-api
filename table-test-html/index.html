@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+    </table>
+    <script>
+        const table = document.querySelector('table');
+        fetch('http://localhost:3000/report/3')
+            .then(response => response.json())
+            .then(responseJson => {
+                const rows = responseJson.data;
+                const total = responseJson.total;
+                for (const row of rows) {
+                    table.innerHTML += `<tr>
+                            <td>${row.scCode}</td>
+                            <td>${row.scName}</td>
+                            <td>${row.depth}</td>
+                            <td>${row.values[0]}</td>
+                            <td>${row.values[1]}</td>
+                            <td>${row.values[2]}</td>
+                            <td>${row.values[3]}</td>
+                            <td>${row.values[4]}</td>
+                            <td>${row.values[5]}</td>
+                            <td>${row.values[6]}</td>
+                            <td>${row.values[7]}</td>
+                            <td>${row.values[8]}</td>
+                            <td>${row.values[9]}</td>
+                            <td>${row.values[10]}</td>
+                            <td>${row.values[11]}</td>
+                            <td>${row.values[12]}</td>
+                            <td>${row.values[13]}</td>
+                        </tr>`;
+                }
+                table.innerHTML += `<tr>
+                            <td>รวม</td>
+                            <td>รวม</td>
+                            <td>รวม</td>
+                            <td>${total[0]}</td>
+                            <td>${total[1]}</td>
+                            <td>${total[2]}</td>
+                            <td>${total[3]}</td>
+                            <td>${total[4]}</td>
+                            <td>${total[5]}</td>
+                            <td>${total[6]}</td>
+                            <td>${total[7]}</td>
+                            <td>${total[8]}</td>
+                            <td>${total[9]}</td>
+                            <td>${total[10]}</td>
+                            <td>${total[11]}</td>
+                            <td>${total[12]}</td>
+                            <td>${total[13]}</td>
+                        </tr>`
+            })
+            .catch(err => console.error(err));
+    </script>
+</body>
+
+</html>
