@@ -25,7 +25,7 @@ router.get("/1", (req, res, next) => {
                 incomeCodeSc: 1,
                 incomeListSc: 1,
                 amountOfMoney: 1,
-                departmentName: 1,
+                branchName: 1,
                 credit: "",
                 total: "",
             }
@@ -47,7 +47,7 @@ router.get("/1", (req, res, next) => {
                     incomeCodeSc: "",
                     incomeListSc: "",
                     amountOfMoney: "",
-                    departmentName: "",
+                    branchName: "",
                     credit: "",
                     total: "",
                 }])
@@ -71,7 +71,7 @@ router.get("/1/:date/:month/:year", (req, res, next) => {
                 incomeCodeSc: 1,
                 incomeListSc: 1,
                 amountOfMoney: 1,
-                departmentName: 1,
+                branchName: 1,
             }
         }
     ]).exec((err, result) => {
@@ -91,7 +91,7 @@ router.get("/1/:date/:month/:year", (req, res, next) => {
                     incomeCodeSc: "",
                     incomeListSc: "",
                     amountOfMoney: "",
-                    departmentName: "",
+                    branchName: "",
                 }])
             }
         }
@@ -113,7 +113,7 @@ router.get("/1/:date/:month/:year/:incomeCodeSc", (req, res, next) => {
                 incomeCodeSc: 1,
                 incomeListSc: 1,
                 amountOfMoney: 1,
-                departmentName: 1,
+                branchName: 1,
             }
         }
     ]).exec((err, result) => {
@@ -133,7 +133,7 @@ router.get("/1/:date/:month/:year/:incomeCodeSc", (req, res, next) => {
                     incomeCodeSc: "",
                     incomeListSc: "",
                     amountOfMoney: "",
-                    departmentName: "",
+                    branchName: "",
                 }])
             }
         }
@@ -148,7 +148,7 @@ router.put("/1/", (req, res, next) => {
             departmentName: req.body.departmentName,
             receiptDate: req.body.receiptDate,
             receiptNumber: req.body.receiptNumber,
-            branchmentName: req.body.branchmentName,
+            branchName: req.body.branchName,
             accountCode: req.body.accountCode,
             incomeListKku: req.body.incomeListKku,
             incomeCodeSc: req.body.incomeCodeSc,
