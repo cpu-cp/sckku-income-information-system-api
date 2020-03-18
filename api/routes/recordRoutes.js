@@ -7,6 +7,15 @@ const recordIncomeCollection = require("../models/recordIncomeModel");
 const recordKkufmisCollection = require("../models/recordKkufmisModel");
 const recordFeeCollection = require("../models/recordFeeModel")
 
+router.get("/1/:id", async (req, res, next) => {
+    const record = await recordIncomeCollection.findById(req.params.id).exec();
+    if (record) {
+        res.status(200).json(record);
+    } else {
+        res.status(401).json(null);
+    }
+});
+
 router.post("/1", (req, res, next) => {
     var incomeData = new recordIncomeCollection({
         _id: new mongoose.Types.ObjectId(),
