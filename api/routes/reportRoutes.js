@@ -277,6 +277,56 @@ router.get("/2/:incomeCodeSc", (req, res, next) => {
 
 });
 
+router.get("/2/month/:month", (req, res, next) => {
+    regex = new RegExp("^\\d{1,2}\/(" + req.params.month + ")\/\\d{4}$")  // regex should be /^\d{1,2}\/(monthValue)\/\d{4}$/
+    recordIncomeCollection.aggregate([
+        {
+            $match: {receiptDate: {'$regex' : regex, '$options' : 'i'}}
+        },
+        {
+            $project: {
+                _id: 1,
+                receiptDate: 1,
+                receiptNumber: 1,
+                accountCode: 1,
+                incomeCodeSc: 1,
+                incomeListKku: 1,
+                incomeListSc: 1,
+                details: 1,
+                receivingType: 1,
+                amountOfMoney: 1,
+                branchName: 1,
+            }
+        }
+    ]).exec((err, result) => {
+        if (err) {
+            res.status(500).json({
+                message: err
+            })
+        }
+        else {
+            if (result != '') {
+                res.status(200).json(result)
+            }
+            else {
+                res.status(401).json([{
+                    receiptDate: "",
+                    receiptNumber: "",
+                    accountCode: "",
+                    incomeCodeSc: "",
+                    incomeListKku: "",
+                    incomeListSc: "",
+                    details: "",
+                    receivingType: "",
+                    amountOfMoney: "",
+                    branchName: "",
+                }])
+            }
+        }
+    })
+
+});
+
 router.put("/2", (req, res, next) => {
     recordIncomeCollection.updateOne({ _id: req.body._id }, {
         $set: {
