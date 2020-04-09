@@ -5,8 +5,7 @@ const recordIncomeCollection = require("../models/recordIncomeModel");
 
 const getBranchReportTable = require('../maps/branchReport.map');
 
-// report 1
-
+/ report 1 /
 router.get("/1", (req, res, next) => {
 
     var today = new Date();
@@ -179,8 +178,7 @@ router.put("/1/", (req, res, next) => {
 
 
 
-//report 2
-
+/ report 2 /
 router.get("/2", (req, res, next) => {
     recordIncomeCollection.aggregate([
         {
@@ -359,8 +357,7 @@ router.put("/2", (req, res, next) => {
 });
 
 
-// report 3
-
+/ report 3 /
 router.get("/3", async (req, res, next) => {
   /**
    * data: [
@@ -402,6 +399,36 @@ router.get("/3", async (req, res, next) => {
     total
   });
 });
+
+router.get("/3/:month/:year", async (req, res, next) => {
+    regex = new RegExp("^\\d{1,2}\/(" + req.params.month + ")\/(" + req.params.year + ")$") 
+    const incomeDocs = await recordIncomeCollection.find( {receiptDate: {'$regex' : regex, '$options' : 'i'}} );
+    if (incomeDocs == "") {
+      res.status(401).json({
+        message: "emtpy"
+      });
+      return;
+    }
+  
+    const table = getBranchReportTable(incomeDocs);
+  
+    const total = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  
+    for (let i = 0; i < 14; i++) {
+      let sum = 0;
+      for (const row of table) {
+        if (row.depth === 1) {
+          sum += row.values[i];
+        }
+      }
+      total[i] = sum;
+    }
+  
+    res.status(200).json({
+      data: table,
+      total
+    });
+  });
 
 
 
