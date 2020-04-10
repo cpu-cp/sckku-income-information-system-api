@@ -12,6 +12,8 @@ var itemSchema = new Schema({
 
 var recordFeeSchema = new Schema({
     _id : { type: String },
+    month: { type: String },
+    year: { type: String },
     fees: [itemSchema]
 },
     { versionKey: false }
